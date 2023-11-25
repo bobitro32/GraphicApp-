@@ -10,6 +10,9 @@ namespace GraphicApp
     {
         private int x;
         private int y;
+        public bool IsFilled { get; set; }
+        public float Thickness { get; set; }
+        public Color Color { get; set; }
         public int X
         {
             get { return x; }

@@ -27,7 +27,7 @@ namespace GraphicApp
             set { height = value; }
         }
 
-        public Rectangle(int x, int y, int width, int height)
+        public Rectangle(int x, int y, int width, int height, bool isFilled, Color color, float thickness = 1.0f)
         {
             X = x;
             Y = y;
@@ -50,12 +50,12 @@ namespace GraphicApp
         }
         public  Rectangle Empty()
         {
-             return new Rectangle(0,0,0,0);
+             return new Rectangle(0,0,0,0,false,Color,0);
         }
 
         public override void Draw(Graphics graphics, Point currentMousePosition)
         {
-            using (Pen pen = new Pen(Color.DarkGreen, 10))
+            using (Pen pen = new Pen(Color, Thickness))
             {
                 graphics.DrawRectangle(pen, X, Y, Width, Height);
             }

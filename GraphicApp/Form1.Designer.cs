@@ -32,6 +32,7 @@
             rectangleBtn = new Button();
             circleBtn = new Button();
             triangle = new Button();
+            hScrollBar1 = new HScrollBar();
             SuspendLayout();
             // 
             // rectangleBtn
@@ -64,12 +65,21 @@
             triangle.Text = "triangle";
             triangle.UseVisualStyleBackColor = false;
             // 
+            // hScrollBar1
+            // 
+            hScrollBar1.Location = new Point(661, 22);
+            hScrollBar1.Name = "hScrollBar1";
+            hScrollBar1.Size = new Size(80, 17);
+            hScrollBar1.TabIndex = 3;
+            hScrollBar1.Scroll += hScrollBar1_Scroll;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.MenuHighlight;
             ClientSize = new Size(800, 450);
+            Controls.Add(hScrollBar1);
             Controls.Add(triangle);
             Controls.Add(circleBtn);
             Controls.Add(rectangleBtn);
@@ -85,6 +95,7 @@
         private Button rectangleBtn;
         private Button circleBtn;
         private Button triangle;
+        private HScrollBar hScrollBar1;
     }
 
 }

@@ -14,6 +14,7 @@ namespace GraphicApp
         private bool isTriangleButtonChecked = false;
         private Point currentMousePosition;
         private bool isDrawingShape = false;
+        private float shapeThickness = 1.0f;
 
         public Form1()
         {
@@ -79,7 +80,10 @@ namespace GraphicApp
                         X = startPoint.X,
                         Y = startPoint.Y,
                         Width = endPoint.X - startPoint.X,
-                        Height = endPoint.Y - startPoint.Y
+                        Height = endPoint.Y - startPoint.Y,
+                         IsFilled = false,
+                        Color = Color.DarkMagenta,
+                        Thickness = shapeThickness
                     };
                 }
                 else if (isCircleButtonChecked)
@@ -88,7 +92,10 @@ namespace GraphicApp
                     {
                         X = startPoint.X,
                         Y = startPoint.Y,
-                        Radius = (int)Math.Max(Math.Abs(e.X - startPoint.X), Math.Abs(e.Y - startPoint.Y))
+                        Radius = (int)Math.Max(Math.Abs(e.X - startPoint.X), Math.Abs(e.Y - startPoint.Y)),
+                        IsFilled = false,
+                        Color = Color.DarkOliveGreen,
+                        Thickness = shapeThickness
                     };
                 }
                 else if (isTriangleButtonChecked)
@@ -98,6 +105,8 @@ namespace GraphicApp
                         // Set width and height directly
                         (currentShape as Triangle).Width = Math.Abs(endPoint.X - startPoint.X);
                         (currentShape as Triangle).Height = Math.Abs(endPoint.Y - startPoint.Y);
+                        (currentShape as Triangle).Color = Color.DarkOliveGreen;
+                        (currentShape as Triangle).Thickness = shapeThickness;
                     }
                 }
 
@@ -142,7 +151,20 @@ namespace GraphicApp
             currentShape?.Draw(e.Graphics, currentMousePosition);
         }
 
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            float multiplier = 0.1f; // You can change this value
+            shapeThickness = e.NewValue * multiplier;
 
+            // Optionally, update the thickness property of the current shape being drawn
+            if (currentShape != null)
+            {
+                currentShape.Thickness = shapeThickness;
+
+                // Redraw the form
+                this.Invalidate();
+            }
+        }
     }
 
 }

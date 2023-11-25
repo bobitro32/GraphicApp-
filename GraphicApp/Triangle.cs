@@ -51,9 +51,7 @@ namespace GraphicApp {
             }
         }
 
-        public bool IsFilled { get; set; }
-        public float Thickness { get; set; }
-        public Color Color { get; set; }
+       
         public Triangle(float x, float y, float width, float height,
                        bool isFilled, Color color, float thickness = 1.0f)
         {
@@ -62,9 +60,7 @@ namespace GraphicApp {
             top = new PointF(x + width / 2, y);
             Width = width;
             Height = height;
-            IsFilled = isFilled;
-            Thickness = thickness;
-            Color = color;
+           
         }
         public Triangle() { 
             
@@ -93,7 +89,7 @@ namespace GraphicApp {
                 new Point((int)rightBottom.X, (int)rightBottom.Y),
                 new Point((int)top.X, (int)top.Y)
             };
-            using (Pen pen = new Pen(Color.AliceBlue, 2))
+            using (Pen pen = new Pen(Color, Thickness))
             {
                 if (IsFilled)
                 {

@@ -10,14 +10,23 @@ namespace GraphicApp
     internal class Circle : Shape
     {
        
-        private int radius;
+        private double radius;
         
-        public int Radius
+        public double Radius
         {
             get { return radius; }
             set { radius = value; }
         }
-        
+        public Circle(bool isFilled, Color color, float thickness = 1.0f)
+        {
+           
+            
+        }
+        public Circle()
+        {
+
+
+        }
         public override double CalculateArea()
         {
             return Math.PI*radius;
@@ -30,9 +39,9 @@ namespace GraphicApp
 
         public override void Draw(Graphics graphics, Point currentMousePosition)
         {
-            using (Pen pen = new Pen(Color.Blue))
+            using (Pen pen = new Pen(Color,Thickness))
             {
-                graphics.DrawEllipse(pen, X, Y ,  Radius,  Radius);
+                graphics.DrawEllipse(pen, X, Y ,  (int)Radius,(int)Radius);
             }
         }
     }
