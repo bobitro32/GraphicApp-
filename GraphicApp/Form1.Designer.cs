@@ -31,33 +31,49 @@
         {
             rectangleBtn = new Button();
             circleBtn = new Button();
+            triangle = new Button();
             SuspendLayout();
             // 
-            // button1
+            // rectangleBtn
             // 
+            rectangleBtn.BackColor = Color.IndianRed;
             rectangleBtn.Location = new Point(113, 13);
             rectangleBtn.Name = "rectangleBtn";
             rectangleBtn.Size = new Size(75, 23);
             rectangleBtn.TabIndex = 0;
             rectangleBtn.Text = "Rectangle";
-            rectangleBtn.UseVisualStyleBackColor = true;
+            rectangleBtn.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // circleBtn
             // 
-            circleBtn.Location = new Point(218, 20);
+            circleBtn.BackColor = Color.IndianRed;
+            circleBtn.Location = new Point(194, 13);
             circleBtn.Name = "circleBtn";
             circleBtn.Size = new Size(75, 23);
             circleBtn.TabIndex = 1;
             circleBtn.Text = "Circle";
-            circleBtn.UseVisualStyleBackColor = true;
+            circleBtn.UseVisualStyleBackColor = false;
+            // 
+            // triangle
+            // 
+            triangle.BackColor = Color.IndianRed;
+            triangle.Location = new Point(275, 13);
+            triangle.Name = "triangle";
+            triangle.Size = new Size(75, 26);
+            triangle.TabIndex = 2;
+            triangle.Text = "triangle";
+            triangle.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.MenuHighlight;
             ClientSize = new Size(800, 450);
+            Controls.Add(triangle);
             Controls.Add(circleBtn);
             Controls.Add(rectangleBtn);
+            DoubleBuffered = true;
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
@@ -68,6 +84,7 @@
 
         private Button rectangleBtn;
         private Button circleBtn;
+        private Button triangle;
     }
 
 }

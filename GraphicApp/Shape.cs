@@ -23,6 +23,6 @@ namespace GraphicApp
         }
         public abstract double CalculateArea();
         public abstract double CalculatePerimeter();
-        public abstract void Draw(Graphics graphics);
+        public abstract void Draw(Graphics graphics,Point currentMousePosition);
     }
 }

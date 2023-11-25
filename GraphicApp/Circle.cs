@@ -28,11 +28,11 @@ namespace GraphicApp
             return 2*Math.PI * radius;
         }
 
-        public override void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics, Point currentMousePosition)
         {
             using (Pen pen = new Pen(Color.Blue))
             {
-                graphics.DrawEllipse(pen, X - Radius, Y - Radius, 2 * Radius, 2 * Radius);
+                graphics.DrawEllipse(pen, X, Y ,  Radius,  Radius);
             }
         }
     }

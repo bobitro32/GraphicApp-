@@ -53,11 +53,11 @@ namespace GraphicApp
              return new Rectangle(0,0,0,0);
         }
 
-        public override void Draw(Graphics graphics)
+        public override void Draw(Graphics graphics, Point currentMousePosition)
         {
-            using (Pen pen = new Pen(Color.Blue))
+            using (Pen pen = new Pen(Color.DarkGreen, 10))
             {
-                graphics.DrawRectangle(pen, X , Y,Width,Height);
+                graphics.DrawRectangle(pen, X, Y, Width, Height);
             }
         }
     }
