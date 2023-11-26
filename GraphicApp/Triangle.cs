@@ -101,6 +101,7 @@ namespace GraphicApp {
                 else
                 {
                     graphics.DrawPolygon(pen, trianglePoints);
+                    
                 }
             }
 

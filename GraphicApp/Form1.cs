@@ -12,6 +12,8 @@ namespace GraphicApp
         private bool isRectangleButtonChecked = false;
         private bool isCircleButtonChecked = false;
         private bool isTriangleButtonChecked = false;
+        private bool isHeartButtonPressed = false;
+
         private Point currentMousePosition;
         private bool isDrawingShape = false;
         private float shapeThickness = 1.0f;
@@ -34,9 +36,10 @@ namespace GraphicApp
             this.MouseDown += HandleMouseDown;
             this.MouseMove += HandleMouseMove;
             this.MouseUp += HandleMouseUp;
-            rectangleBtn.Click += (sender, e) => { isRectangleButtonChecked = true; isCircleButtonChecked = false; isTriangleButtonChecked = false; };
-            circleBtn.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = true; isTriangleButtonChecked = false; };
-            triangle.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = true; };
+            rectangleBtn.Click += (sender, e) => { isRectangleButtonChecked = true; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; };
+            circleBtn.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = true; isTriangleButtonChecked = false; isHeartButtonPressed = false; };
+            triangle.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = true; isHeartButtonPressed = false; };
+            heart.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = true; };
 
         }
 
@@ -59,6 +62,10 @@ namespace GraphicApp
             {
                 currentShape = new Triangle { X = startPoint.X, Y = startPoint.Y };
             }
+            else if (isHeartButtonPressed)
+            {
+                currentShape = new Heart { X = startPoint.X, Y = startPoint.Y };
+            }
 
         }
         private double CalculateDistance(Point p1, Point p2)
@@ -69,7 +76,7 @@ namespace GraphicApp
         }
         private void HandleMouseMove(object sender, MouseEventArgs e)
         {
-            if ((isRectangleButtonChecked || isCircleButtonChecked || isTriangleButtonChecked) && e.Button == MouseButtons.Left)
+            if ((isRectangleButtonChecked || isCircleButtonChecked || isTriangleButtonChecked || isHeartButtonPressed) && e.Button == MouseButtons.Left)
             {
                 endPoint = e.Location;
 
@@ -77,11 +84,11 @@ namespace GraphicApp
                 {
                     currentShape = new Rectangle
                     {
-                        X = startPoint.X,
-                        Y = startPoint.Y,
-                        Width = endPoint.X - startPoint.X,
-                        Height = endPoint.Y - startPoint.Y,
-                         IsFilled = false,
+                        X = Math.Min(startPoint.X, e.X),
+                        Y = Math.Min(startPoint.Y, e.Y),
+                        Width = Math.Abs(endPoint.X - startPoint.X),
+                        Height = Math.Abs(endPoint.Y - startPoint.Y),
+                        IsFilled = false,
                         Color = Color.DarkMagenta,
                         Thickness = shapeThickness
                     };
@@ -90,8 +97,8 @@ namespace GraphicApp
                 {
                     currentShape = new Circle
                     {
-                        X = startPoint.X,
-                        Y = startPoint.Y,
+                        X = Math.Min(startPoint.X, e.X),
+                        Y = Math.Min(startPoint.Y, e.Y),
                         Radius = (int)Math.Max(Math.Abs(e.X - startPoint.X), Math.Abs(e.Y - startPoint.Y)),
                         IsFilled = false,
                         Color = Color.DarkOliveGreen,
@@ -103,11 +110,26 @@ namespace GraphicApp
                     if (currentShape is Triangle)
                     {
                         // Set width and height directly
+                        (currentShape as Triangle).X = Math.Min(startPoint.X, e.X);
+
                         (currentShape as Triangle).Width = Math.Abs(endPoint.X - startPoint.X);
-                        (currentShape as Triangle).Height = Math.Abs(endPoint.Y - startPoint.Y);
-                        (currentShape as Triangle).Color = Color.DarkOliveGreen;
+                        (currentShape as Triangle).Height = (endPoint.Y - startPoint.Y);
+                        (currentShape as Triangle).Color = Color.DarkRed;
                         (currentShape as Triangle).Thickness = shapeThickness;
                     }
+                } else if (isHeartButtonPressed)
+                {
+                    currentShape = new Heart
+                    {   
+                        X = Math.Min(startPoint.X, endPoint.X),
+                        Y= Math.Min(startPoint.Y, endPoint.Y),
+                        Width = Math.Abs(endPoint.X - startPoint.X),
+                        Height = (endPoint.Y - startPoint.Y),
+                        IsFilled = false,
+                        Color = Color.Red,
+                        Thickness = shapeThickness
+                    };
+                
                 }
 
 
@@ -165,6 +187,8 @@ namespace GraphicApp
                 this.Invalidate();
             }
         }
+
+
     }
 
 }
