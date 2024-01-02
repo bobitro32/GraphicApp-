@@ -106,6 +106,11 @@ namespace GraphicApp {
             }
 
         }
+
+        public override Shape CopyFigure()
+        {
+            return new Triangle(X, Y, Width, Height, IsFilled, Color, Thickness);
+        }
     }
 
 }

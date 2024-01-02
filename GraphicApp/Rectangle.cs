@@ -60,5 +60,10 @@ namespace GraphicApp
                 graphics.DrawRectangle(pen, X, Y, Width, Height);
             }
         }
+
+        public override Shape CopyFigure()
+        {
+            return new Rectangle(X, Y, Width, Height, IsFilled, Color, Thickness);
+        }
     }
 }

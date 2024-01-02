@@ -36,7 +36,16 @@
             panel1 = new Panel();
             heart = new Button();
             label1 = new Label();
+            colorDialog1 = new ColorDialog();
+            panel2 = new Panel();
+            clear = new Button();
+            copy = new Button();
+            checkBox1 = new CheckBox();
+            thickness = new Label();
+            colorDialog2 = new ColorDialog();
+            paste = new Button();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // rectangleBtn
@@ -79,7 +88,7 @@
             // hScrollBar1
             // 
             hScrollBar1.AllowDrop = true;
-            hScrollBar1.Location = new Point(711, 142);
+            hScrollBar1.Location = new Point(3, 18);
             hScrollBar1.Name = "hScrollBar1";
             hScrollBar1.Size = new Size(80, 17);
             hScrollBar1.TabIndex = 3;
@@ -94,18 +103,18 @@
             panel1.Controls.Add(circleBtn);
             panel1.Controls.Add(triangle);
             panel1.ForeColor = Color.MediumVioletRed;
-            panel1.Location = new Point(588, 12);
+            panel1.Location = new Point(601, 12);
             panel1.Name = "panel1";
             panel1.Size = new Size(200, 103);
             panel1.TabIndex = 4;
             // 
-            // button1
+            // heart
             // 
             heart.BackColor = Color.Blue;
             heart.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             heart.ForeColor = Color.Fuchsia;
             heart.Location = new Point(100, 67);
-            heart.Name = "button1";
+            heart.Name = "heart";
             heart.Size = new Size(87, 33);
             heart.TabIndex = 4;
             heart.Text = "Heart";
@@ -122,21 +131,98 @@
             label1.TabIndex = 3;
             label1.Text = "Shapes";
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Blue;
+            panel2.Controls.Add(paste);
+            panel2.Controls.Add(clear);
+            panel2.Controls.Add(copy);
+            panel2.Controls.Add(checkBox1);
+            panel2.Controls.Add(thickness);
+            panel2.Controls.Add(hScrollBar1);
+            panel2.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
+            panel2.ForeColor = Color.Fuchsia;
+            panel2.Location = new Point(293, 12);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(302, 103);
+            panel2.TabIndex = 5;
+            // 
+            // clear
+            // 
+            clear.BackColor = Color.Blue;
+            clear.Location = new Point(224, 3);
+            clear.Name = "clear";
+            clear.Size = new Size(75, 23);
+            clear.TabIndex = 6;
+            clear.Text = "Clear";
+            clear.UseVisualStyleBackColor = false;
+            clear.Click += clear_Click;
+            // 
+            // copy
+            // 
+            copy.BackColor = Color.Blue;
+            copy.Location = new Point(143, 3);
+            copy.Name = "copy";
+            copy.Size = new Size(75, 23);
+            copy.TabIndex = 5;
+            copy.Text = "Copy";
+            copy.UseVisualStyleBackColor = false;
+            copy.Click += copyObject;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.CheckAlign = ContentAlignment.MiddleRight;
+            checkBox1.Location = new Point(0, 43);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(103, 21);
+            checkBox1.TabIndex = 4;
+            checkBox1.Text = "checkBox1";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // thickness
+            // 
+            thickness.AutoSize = true;
+            thickness.Font = new Font("Showcard Gothic", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
+            thickness.Location = new Point(0, 0);
+            thickness.Name = "thickness";
+            thickness.Size = new Size(89, 18);
+            thickness.TabIndex = 0;
+            thickness.Text = "Thickness";
+            // 
+            // paste
+            // 
+            paste.BackColor = Color.MediumBlue;
+            paste.ForeColor = Color.Fuchsia;
+            paste.Location = new Point(143, 32);
+            paste.Name = "paste";
+            paste.Size = new Size(75, 23);
+            paste.TabIndex = 7;
+            paste.Text = "Paste";
+            paste.UseVisualStyleBackColor = false;
+            paste.Click += pasteObject;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.HighlightText;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(813, 450);
+            Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(hScrollBar1);
             DoubleBuffered = true;
             Name = "Form1";
             Text = "Form1";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
+
+
+
+
 
         #endregion
 
@@ -148,6 +234,14 @@
         private Panel panel1;
         private Label label1;
         private Button heart;
+        private ColorDialog colorDialog1;
+        private Panel panel2;
+        private Label thickness;
+        private ColorDialog colorDialog2;
+        private CheckBox checkBox1;
+        private Button copy;
+        private Button clear;
+        private Button paste;
     }
 
 }

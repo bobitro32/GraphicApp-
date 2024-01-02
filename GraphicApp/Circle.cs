@@ -22,11 +22,13 @@ namespace GraphicApp
            
             
         }
-        public Circle()
+        public Circle(int x,int y,double radius, bool isFilled, Color color, float thickness = 1.0f)
         {
-
+           
+            Radius = radius;
 
         }
+        public Circle() { }
         public override double CalculateArea()
         {
             return Math.PI*radius;
@@ -43,6 +45,11 @@ namespace GraphicApp
             {
                 graphics.DrawEllipse(pen, X, Y ,  (int)Radius,(int)Radius);
             }
+        }
+
+        public override Shape CopyFigure()
+        {
+            return new Circle(X, Y, Radius,IsFilled, Color, Thickness);
         }
     }
 

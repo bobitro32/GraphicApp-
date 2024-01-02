@@ -7,12 +7,14 @@ namespace GraphicApp
 
         private Point startPoint;
         private Point endPoint;
+        private Shape coppiedShape;
         private List<Shape> shapes;
         private Shape currentShape;
         private bool isRectangleButtonChecked = false;
         private bool isCircleButtonChecked = false;
         private bool isTriangleButtonChecked = false;
         private bool isHeartButtonPressed = false;
+        private bool isCopyButtonPressed = false;
 
         private Point currentMousePosition;
         private bool isDrawingShape = false;
@@ -117,19 +119,20 @@ namespace GraphicApp
                         (currentShape as Triangle).Color = Color.DarkRed;
                         (currentShape as Triangle).Thickness = shapeThickness;
                     }
-                } else if (isHeartButtonPressed)
+                }
+                else if (isHeartButtonPressed)
                 {
                     currentShape = new Heart
-                    {   
+                    {
                         X = Math.Min(startPoint.X, endPoint.X),
-                        Y= Math.Min(startPoint.Y, endPoint.Y),
+                        Y = Math.Min(startPoint.Y, endPoint.Y),
                         Width = Math.Abs(endPoint.X - startPoint.X),
                         Height = (endPoint.Y - startPoint.Y),
                         IsFilled = false,
                         Color = Color.Red,
                         Thickness = shapeThickness
                     };
-                
+
                 }
 
 
@@ -153,10 +156,6 @@ namespace GraphicApp
             currentShape = null;
             currentMousePosition = e.Location;
 
-
-
-
-            // Redraw the form
             this.Invalidate();
         }
 
@@ -182,12 +181,36 @@ namespace GraphicApp
             if (currentShape != null)
             {
                 currentShape.Thickness = shapeThickness;
-
-                // Redraw the form
                 this.Invalidate();
             }
         }
 
+        private void clear_Click(object sender, EventArgs e)
+        {
+            shapes.Clear();
+            this.Invalidate();
+        }
+        private void copyObject(object sender, EventArgs e)
+        {
+            Shape lastShape = shapes.Last();
+            coppiedShape = lastShape.CopyFigure();
+        }
+        private void pasteObject(object sender, EventArgs e)
+        {
+            pasteMi(coppiedShape);
+            
+            this.Invalidate();
+        }
+        private void pasteMi(Shape shape) {
+
+            shape.X = currentMousePosition.X;
+            shape.Y = currentMousePosition.Y;
+            
+            shapes.Add(shape);
+            coppiedShape = null;
+            this.Invalidate();
+            
+        }
 
     }
 

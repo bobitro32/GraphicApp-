@@ -91,6 +91,11 @@ namespace GraphicApp
                 }
             }
         }
+
+        public override Shape CopyFigure()
+        {
+            return new Heart(X,Y,Width,Height,IsFilled,Color,Thickness);
+        }
     }
 
     
