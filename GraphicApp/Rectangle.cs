@@ -61,7 +61,7 @@ namespace GraphicApp
             }
         }
 
-        public override Shape CopyFigure()
+        public override Shape CopyFigure(Point newMousePosition)
         {
             Rectangle rectangle = new Rectangle();
             rectangle.X = X;

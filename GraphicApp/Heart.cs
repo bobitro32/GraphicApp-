@@ -92,7 +92,7 @@ namespace GraphicApp
             }
         }
 
-        public override Shape CopyFigure()
+        public override Shape CopyFigure(Point newMousePosition)
         {
             Heart heart = new Heart();
 

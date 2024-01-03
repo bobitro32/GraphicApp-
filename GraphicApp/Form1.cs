@@ -128,6 +128,7 @@ namespace GraphicApp
                     {
                         // Set width and height directly
                         (currentShape as Triangle).X = Math.Min(startPoint.X, e.X);
+                        
 
                         (currentShape as Triangle).Width = Math.Abs(endPoint.X - startPoint.X);
                         (currentShape as Triangle).Height = (endPoint.Y - startPoint.Y);
@@ -208,7 +209,7 @@ namespace GraphicApp
         private void copyObject(object sender, EventArgs e)
         {
             Shape lastShape = shapes.Last();
-            copiedShape = lastShape.CopyFigure();
+            copiedShape = lastShape.CopyFigure(currentMousePosition);
             //copiedShape.Thickness = lastShape.Thickness;
             isCopyButtonPressed = true;
         }
@@ -218,7 +219,7 @@ namespace GraphicApp
             {
                 copiedShape.X = pasteLocation.X;
                 copiedShape.Y = pasteLocation.Y;
-               
+                
                 shapes.Add(copiedShape);
                 copiedShape = null; // Reset copiedShape after pasting
                 isCopyButtonPressed = false; // Reset the flag

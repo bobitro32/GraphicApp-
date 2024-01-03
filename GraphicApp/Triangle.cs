@@ -107,12 +107,11 @@ namespace GraphicApp {
 
         }
 
-        public override Shape CopyFigure()
+        public override Shape CopyFigure(Point newMousePosition)
         {
             Triangle triangle = new Triangle();
-            triangle.leftBottom = new PointF(leftBottom.X, leftBottom.Y);
-            triangle.rightBottom = new PointF(rightBottom.X, rightBottom.Y);
-            triangle.top = new PointF(top.X, top.Y);
+            triangle.X = newMousePosition.X; // Set the X position to the new mouse click X
+            triangle.Y = newMousePosition.Y;
             triangle.Width = Width;
             triangle.Height = Height;
             triangle.IsFilled = IsFilled;

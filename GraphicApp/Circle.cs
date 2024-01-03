@@ -47,7 +47,7 @@ namespace GraphicApp
             }
         }
 
-        public override Shape CopyFigure()
+        public override Shape CopyFigure(Point newMousePosition)
         {
             Circle circle = new Circle();
             circle.Radius = Radius;
