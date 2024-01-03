@@ -49,7 +49,15 @@ namespace GraphicApp
 
         public override Shape CopyFigure()
         {
-            return new Circle(X, Y, Radius,IsFilled, Color, Thickness);
+            Circle circle = new Circle();
+            circle.Radius = Radius;
+            circle.IsFilled = IsFilled;
+            circle.X = X;
+            circle.Y = Y;
+            circle.Color = Color;
+            circle.Thickness = Thickness;
+            return circle;
+
         }
     }
 

@@ -7,17 +7,18 @@ namespace GraphicApp
 
         private Point startPoint;
         private Point endPoint;
-        private Shape coppiedShape;
+        private Shape copiedShape;
         private List<Shape> shapes;
         private Shape currentShape;
         private bool isRectangleButtonChecked = false;
         private bool isCircleButtonChecked = false;
         private bool isTriangleButtonChecked = false;
         private bool isHeartButtonPressed = false;
+        private bool isPasteButtonPressed = false;
         private bool isCopyButtonPressed = false;
-
         private Point currentMousePosition;
-        private bool isDrawingShape = false;
+        
+        
         private float shapeThickness = 1.0f;
 
         public Form1()
@@ -25,6 +26,7 @@ namespace GraphicApp
             InitializeComponent();
             InitializeShapes();
             AttachMouseEvents();
+           
         }
 
         private void InitializeShapes()
@@ -38,11 +40,11 @@ namespace GraphicApp
             this.MouseDown += HandleMouseDown;
             this.MouseMove += HandleMouseMove;
             this.MouseUp += HandleMouseUp;
-            rectangleBtn.Click += (sender, e) => { isRectangleButtonChecked = true; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; };
-            circleBtn.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = true; isTriangleButtonChecked = false; isHeartButtonPressed = false; };
-            triangle.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = true; isHeartButtonPressed = false; };
-            heart.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = true; };
-
+            rectangleBtn.Click += (sender, e) => { isRectangleButtonChecked = true; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = false; };
+            circleBtn.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = true; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = false; };
+            triangle.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = true; isHeartButtonPressed = false; isPasteButtonPressed = false; };
+            heart.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = true; isPasteButtonPressed = false; };
+            paste.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = true; };
         }
 
         private void HandleMouseDown(object sender, MouseEventArgs e)
@@ -51,6 +53,10 @@ namespace GraphicApp
 
 
             currentMousePosition = e.Location;
+            if (isCopyButtonPressed)
+            {
+                pasteObject(currentMousePosition);
+            }
 
             if (isRectangleButtonChecked)
             {
@@ -67,6 +73,15 @@ namespace GraphicApp
             else if (isHeartButtonPressed)
             {
                 currentShape = new Heart { X = startPoint.X, Y = startPoint.Y };
+            }
+            else if (isPasteButtonPressed) {
+                if (copiedShape != null)
+                {
+                    copiedShape.X = currentMousePosition.X;
+                    copiedShape.Y = currentMousePosition.Y;
+                    shapes.Add(copiedShape); // Add the copied shape to the list
+                    copiedShape = null; // Reset copiedShape after pasting
+                }
             }
 
         }
@@ -133,7 +148,7 @@ namespace GraphicApp
                         Thickness = shapeThickness
                     };
 
-                }
+                } 
 
 
                 currentMousePosition = e.Location;
@@ -193,24 +208,24 @@ namespace GraphicApp
         private void copyObject(object sender, EventArgs e)
         {
             Shape lastShape = shapes.Last();
-            coppiedShape = lastShape.CopyFigure();
+            copiedShape = lastShape.CopyFigure();
+            //copiedShape.Thickness = lastShape.Thickness;
+            isCopyButtonPressed = true;
         }
-        private void pasteObject(object sender, EventArgs e)
+        private void pasteObject(Point pasteLocation)
         {
-            pasteMi(coppiedShape);
-            
-            this.Invalidate();
+            if (copiedShape != null)
+            {
+                copiedShape.X = pasteLocation.X;
+                copiedShape.Y = pasteLocation.Y;
+               
+                shapes.Add(copiedShape);
+                copiedShape = null; // Reset copiedShape after pasting
+                isCopyButtonPressed = false; // Reset the flag
+                this.Invalidate();
+            }
         }
-        private void pasteMi(Shape shape) {
 
-            shape.X = currentMousePosition.X;
-            shape.Y = currentMousePosition.Y;
-            
-            shapes.Add(shape);
-            coppiedShape = null;
-            this.Invalidate();
-            
-        }
 
     }
 

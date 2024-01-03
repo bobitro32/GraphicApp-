@@ -200,7 +200,7 @@
             paste.TabIndex = 7;
             paste.Text = "Paste";
             paste.UseVisualStyleBackColor = false;
-            paste.Click += pasteObject;
+            
             // 
             // Form1
             // 

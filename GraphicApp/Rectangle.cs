@@ -63,7 +63,15 @@ namespace GraphicApp
 
         public override Shape CopyFigure()
         {
-            return new Rectangle(X, Y, Width, Height, IsFilled, Color, Thickness);
+            Rectangle rectangle = new Rectangle();
+            rectangle.X = X;
+            rectangle.Y = Y;
+            rectangle.Width = Width;
+            rectangle.Height = Height;
+            rectangle.Thickness = Thickness;
+            rectangle.IsFilled = IsFilled;
+            rectangle.Color = Color;
+            return rectangle;
         }
     }
 }

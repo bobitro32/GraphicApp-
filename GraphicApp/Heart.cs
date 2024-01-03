@@ -94,7 +94,16 @@ namespace GraphicApp
 
         public override Shape CopyFigure()
         {
-            return new Heart(X,Y,Width,Height,IsFilled,Color,Thickness);
+            Heart heart = new Heart();
+
+            heart.X = X;
+            heart.Y = Y;
+            heart.Width = Width;
+            heart.Height = Height;
+            heart.Thickness= Thickness;
+            heart.IsFilled = IsFilled;
+            heart.Color = Color;
+            return heart;
         }
     }
 

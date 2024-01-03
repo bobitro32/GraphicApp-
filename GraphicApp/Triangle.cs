@@ -109,7 +109,16 @@ namespace GraphicApp {
 
         public override Shape CopyFigure()
         {
-            return new Triangle(X, Y, Width, Height, IsFilled, Color, Thickness);
+            Triangle triangle = new Triangle();
+            triangle.leftBottom = new PointF(leftBottom.X, leftBottom.Y);
+            triangle.rightBottom = new PointF(rightBottom.X, rightBottom.Y);
+            triangle.top = new PointF(top.X, top.Y);
+            triangle.Width = Width;
+            triangle.Height = Height;
+            triangle.IsFilled = IsFilled;
+            triangle.Color = Color;
+            triangle.Thickness = Thickness;
+            return triangle;
         }
     }
 
