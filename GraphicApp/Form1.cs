@@ -16,6 +16,10 @@ namespace GraphicApp
         private bool isHeartButtonPressed = false;
         private bool isPasteButtonPressed = false;
         private bool isCopyButtonPressed = false;
+        private bool isUndoButtonPressed = false;
+        private bool isRedoButtonPressed = false;
+        private Stack<Shape> undoStack;
+        private Stack<Shape> redoStack;
         private Point currentMousePosition;
         
         
@@ -31,7 +35,10 @@ namespace GraphicApp
 
         private void InitializeShapes()
         {
+            
             shapes = new List<Shape>();
+            undoStack = new Stack<Shape>();
+            redoStack = new Stack<Shape>();
             currentShape = null;
         }
 
@@ -45,6 +52,9 @@ namespace GraphicApp
             triangle.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = true; isHeartButtonPressed = false; isPasteButtonPressed = false; };
             heart.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = true; isPasteButtonPressed = false; };
             paste.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = true; };
+            undo.Click += (sender, e) =>  Undo();
+            redo.Click += (sender, e) =>  Redo();
+
         }
 
         private void HandleMouseDown(object sender, MouseEventArgs e)
@@ -74,7 +84,8 @@ namespace GraphicApp
             {
                 currentShape = new Heart { X = startPoint.X, Y = startPoint.Y };
             }
-            else if (isPasteButtonPressed) {
+            else if (isPasteButtonPressed)
+            {
                 if (copiedShape != null)
                 {
                     copiedShape.X = currentMousePosition.X;
@@ -83,8 +94,16 @@ namespace GraphicApp
                     copiedShape = null; // Reset copiedShape after pasting
                 }
             }
+            
+
+            if (currentShape != null) { 
+                undoStack.Push(currentShape);
+                redoStack.Push(currentShape);
+            }
+            
 
         }
+        
         private double CalculateDistance(Point p1, Point p2)
         {
             int dx = p2.X - p1.X;
@@ -128,8 +147,6 @@ namespace GraphicApp
                     {
                         // Set width and height directly
                         (currentShape as Triangle).X = Math.Min(startPoint.X, e.X);
-                        
-
                         (currentShape as Triangle).Width = Math.Abs(endPoint.X - startPoint.X);
                         (currentShape as Triangle).Height = (endPoint.Y - startPoint.Y);
                         (currentShape as Triangle).Color = Color.DarkRed;
@@ -149,7 +166,13 @@ namespace GraphicApp
                         Thickness = shapeThickness
                     };
 
-                } 
+                }
+                if (currentShape != null)
+                {
+                    undoStack.Push(currentShape);
+                    redoStack.Push(currentShape);
+                }
+
 
 
                 currentMousePosition = e.Location;
@@ -167,6 +190,20 @@ namespace GraphicApp
             if (currentShape != null)
             {
                 shapes.Add(currentShape);
+                if (currentShape != null)
+                {
+                    undoStack.Push(currentShape);
+                    redoStack.Push(currentShape);
+                }
+
+            }
+            if (isUndoButtonPressed)
+            {
+                Undo();
+            }
+            else if (isRedoButtonPressed)
+            {
+                Redo();
             }
 
             currentShape = null;
@@ -221,13 +258,29 @@ namespace GraphicApp
                 copiedShape.Y = pasteLocation.Y;
                 
                 shapes.Add(copiedShape);
+                if (currentShape != null)
+                {
+                    undoStack.Push(copiedShape);
+                    redoStack.Push(copiedShape);
+                }
                 copiedShape = null; // Reset copiedShape after pasting
                 isCopyButtonPressed = false; // Reset the flag
                 this.Invalidate();
             }
         }
+        private void Undo() {
+            shapes.Remove(undoStack.Pop());
+            this.Invalidate();
+            
+        }
 
+        private void Redo()
+        {
+            undoStack.Push(redoStack.Peek());
+            shapes.Add(undoStack.Peek());
+            this.Invalidate();
 
+        }
     }
 
 }

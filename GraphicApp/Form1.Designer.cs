@@ -38,12 +38,14 @@
             label1 = new Label();
             colorDialog1 = new ColorDialog();
             panel2 = new Panel();
+            paste = new Button();
             clear = new Button();
             copy = new Button();
-            checkBox1 = new CheckBox();
+            filled = new CheckBox();
             thickness = new Label();
             colorDialog2 = new ColorDialog();
-            paste = new Button();
+            undo = new Button();
+            redo = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -134,10 +136,12 @@
             // panel2
             // 
             panel2.BackColor = Color.Blue;
+            panel2.Controls.Add(redo);
+            panel2.Controls.Add(undo);
             panel2.Controls.Add(paste);
             panel2.Controls.Add(clear);
             panel2.Controls.Add(copy);
-            panel2.Controls.Add(checkBox1);
+            panel2.Controls.Add(filled);
             panel2.Controls.Add(thickness);
             panel2.Controls.Add(hScrollBar1);
             panel2.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
@@ -146,6 +150,17 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(302, 103);
             panel2.TabIndex = 5;
+            // 
+            // paste
+            // 
+            paste.BackColor = Color.MediumBlue;
+            paste.ForeColor = Color.Fuchsia;
+            paste.Location = new Point(143, 32);
+            paste.Name = "paste";
+            paste.Size = new Size(75, 23);
+            paste.TabIndex = 7;
+            paste.Text = "Paste";
+            paste.UseVisualStyleBackColor = false;
             // 
             // clear
             // 
@@ -169,16 +184,18 @@
             copy.UseVisualStyleBackColor = false;
             copy.Click += copyObject;
             // 
-            // checkBox1
+            // filled
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.CheckAlign = ContentAlignment.MiddleRight;
-            checkBox1.Location = new Point(0, 43);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(103, 21);
-            checkBox1.TabIndex = 4;
-            checkBox1.Text = "checkBox1";
-            checkBox1.UseVisualStyleBackColor = true;
+            filled.AutoSize = true;
+            filled.BackColor = Color.MediumBlue;
+            filled.CheckAlign = ContentAlignment.MiddleRight;
+            filled.ForeColor = Color.Fuchsia;
+            filled.Location = new Point(0, 43);
+            filled.Name = "filled";
+            filled.Size = new Size(70, 21);
+            filled.TabIndex = 4;
+            filled.Text = "Filled";
+            filled.UseVisualStyleBackColor = false;
             // 
             // thickness
             // 
@@ -190,17 +207,26 @@
             thickness.TabIndex = 0;
             thickness.Text = "Thickness";
             // 
-            // paste
+            // undo
             // 
-            paste.BackColor = Color.MediumBlue;
-            paste.ForeColor = Color.Fuchsia;
-            paste.Location = new Point(143, 32);
-            paste.Name = "paste";
-            paste.Size = new Size(75, 23);
-            paste.TabIndex = 7;
-            paste.Text = "Paste";
-            paste.UseVisualStyleBackColor = false;
-            
+            undo.BackColor = Color.MediumBlue;
+            undo.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
+            undo.Location = new Point(224, 32);
+            undo.Name = "undo";
+            undo.Size = new Size(75, 23);
+            undo.TabIndex = 8;
+            undo.Text = "Undo";
+            undo.UseVisualStyleBackColor = false;
+            // 
+            // redo
+            // 
+            redo.BackColor = Color.MediumBlue;
+            redo.Location = new Point(143, 61);
+            redo.Name = "redo";
+            redo.Size = new Size(75, 23);
+            redo.TabIndex = 9;
+            redo.Text = "Redo";
+            redo.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -238,10 +264,12 @@
         private Panel panel2;
         private Label thickness;
         private ColorDialog colorDialog2;
-        private CheckBox checkBox1;
+        private CheckBox filled;
         private Button copy;
         private Button clear;
         private Button paste;
+        private Button undo;
+        private Button redo;
     }
 
 }
