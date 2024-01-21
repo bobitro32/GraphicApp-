@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraphicApp
+namespace GraphicApp.Classes
 {
     internal class Rectangle : Shape
     {
-        
+
         private int width;
         private int height;
 
-        
+
 
         public int Width
         {
@@ -46,11 +46,11 @@ namespace GraphicApp
 
         public override double CalculatePerimeter()
         {
-            return 2*Width + Height*2;
+            return 2 * Width + Height * 2;
         }
-        public  Rectangle Empty()
+        public Rectangle Empty()
         {
-             return new Rectangle(0,0,0,0,false,Color,0);
+            return new Rectangle(0, 0, 0, 0, false, Color, 0);
         }
 
         public override void Draw(Graphics graphics, Point currentMousePosition)

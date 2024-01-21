@@ -38,14 +38,14 @@
             label1 = new Label();
             colorDialog1 = new ColorDialog();
             panel2 = new Panel();
+            redo = new Button();
+            undo = new Button();
             paste = new Button();
             clear = new Button();
             copy = new Button();
             filled = new CheckBox();
             thickness = new Label();
             colorDialog2 = new ColorDialog();
-            undo = new Button();
-            redo = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -98,6 +98,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(0, 0, 192);
             panel1.Controls.Add(heart);
             panel1.Controls.Add(label1);
@@ -135,6 +136,7 @@
             // 
             // panel2
             // 
+            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel2.BackColor = Color.Blue;
             panel2.Controls.Add(redo);
             panel2.Controls.Add(undo);
@@ -150,6 +152,27 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(302, 103);
             panel2.TabIndex = 5;
+            // 
+            // redo
+            // 
+            redo.BackColor = Color.MediumBlue;
+            redo.Location = new Point(143, 61);
+            redo.Name = "redo";
+            redo.Size = new Size(75, 23);
+            redo.TabIndex = 9;
+            redo.Text = "Redo";
+            redo.UseVisualStyleBackColor = false;
+            // 
+            // undo
+            // 
+            undo.BackColor = Color.MediumBlue;
+            undo.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
+            undo.Location = new Point(224, 32);
+            undo.Name = "undo";
+            undo.Size = new Size(75, 23);
+            undo.TabIndex = 8;
+            undo.Text = "Undo";
+            undo.UseVisualStyleBackColor = false;
             // 
             // paste
             // 
@@ -206,27 +229,6 @@
             thickness.Size = new Size(89, 18);
             thickness.TabIndex = 0;
             thickness.Text = "Thickness";
-            // 
-            // undo
-            // 
-            undo.BackColor = Color.MediumBlue;
-            undo.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
-            undo.Location = new Point(224, 32);
-            undo.Name = "undo";
-            undo.Size = new Size(75, 23);
-            undo.TabIndex = 8;
-            undo.Text = "Undo";
-            undo.UseVisualStyleBackColor = false;
-            // 
-            // redo
-            // 
-            redo.BackColor = Color.MediumBlue;
-            redo.Location = new Point(143, 61);
-            redo.Name = "redo";
-            redo.Size = new Size(75, 23);
-            redo.TabIndex = 9;
-            redo.Text = "Redo";
-            redo.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 

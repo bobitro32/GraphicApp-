@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraphicApp
+namespace GraphicApp.Classes
 {
-    internal class Heart:Shape
+    internal class Heart : Shape
     {
         private float width;
         private float height;
@@ -33,9 +33,9 @@ namespace GraphicApp
             }
         }
 
-        public Heart(int x, int y, float width, float height, bool isFilled, Color color, float thickness = 1.0f)   
+        public Heart(int x, int y, float width, float height, bool isFilled, Color color, float thickness = 1.0f)
         {
-           
+
             Width = width;
             Height = height;
         }
@@ -74,7 +74,7 @@ namespace GraphicApp
         {
             if (graphics == null) return;
 
-            GraphicsPath path = CreateHeartPath((float)X, (float)Y, Math.Max(Width, 100), Math.Max(Height, 100));
+            GraphicsPath path = CreateHeartPath(X, Y, Math.Max(Width, 100), Math.Max(Height, 100));
 
             using (Pen pen = new Pen(Color.Red, Thickness))
             {
@@ -100,14 +100,14 @@ namespace GraphicApp
             heart.Y = Y;
             heart.Width = Width;
             heart.Height = Height;
-            heart.Thickness= Thickness;
+            heart.Thickness = Thickness;
             heart.IsFilled = IsFilled;
             heart.Color = Color;
             return heart;
         }
     }
 
-    
+
 }
-    
+
 

@@ -1,8 +1,9 @@
-﻿using GraphicApp;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-namespace GraphicApp {
+
+namespace GraphicApp.Classes
+{
     internal class Triangle : Shape
     {
         private PointF leftBottom;
@@ -14,15 +15,18 @@ namespace GraphicApp {
         public PointF LeftBottom { get => leftBottom; set => leftBottom = value; }
         public PointF RightBottom { get => rightBottom; set => rightBottom = value; }
         public PointF Top { get => top; set => top = value; }
-        public float Width {
+        public float Width
+        {
             get => width;
-            set {
+            set
+            {
                 width = value;
                 rightBottom.X = leftBottom.X + value;
                 top.X = leftBottom.X + value / 2;
             }
         }
-        public float Height {
+        public float Height
+        {
             get => height;
             set
             {
@@ -51,7 +55,7 @@ namespace GraphicApp {
             }
         }
 
-       
+
         public Triangle(float x, float y, float width, float height,
                        bool isFilled, Color color, float thickness = 1.0f)
         {
@@ -60,10 +64,11 @@ namespace GraphicApp {
             top = new PointF(x + width / 2, y);
             Width = width;
             Height = height;
-           
+
         }
-        public Triangle() { 
-            
+        public Triangle()
+        {
+
         }
         private float CalculateDistance(PointF point1, PointF point2)
         {
@@ -101,7 +106,7 @@ namespace GraphicApp {
                 else
                 {
                     graphics.DrawPolygon(pen, trianglePoints);
-                    
+
                 }
             }
 

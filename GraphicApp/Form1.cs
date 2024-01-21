@@ -1,3 +1,5 @@
+using GraphicApp.Classes;
+
 namespace GraphicApp
 {
     public partial class Form1 : Form
@@ -18,8 +20,8 @@ namespace GraphicApp
         private Stack<List<Shape>> undoStack;
         private Stack<List<Shape>> redoStack;
         private Point currentMousePosition;
-        
-        
+
+
         private float shapeThickness = 1.0f;
 
         public Form1()
@@ -27,12 +29,12 @@ namespace GraphicApp
             InitializeComponent();
             InitializeShapes();
             AttachMouseEvents();
-           
+
         }
 
         private void InitializeShapes()
         {
-            
+
             shapes = new List<Shape>();
             undoStack = new Stack<List<Shape>>();
             redoStack = new Stack<List<Shape>>();
@@ -45,12 +47,12 @@ namespace GraphicApp
             this.MouseMove += HandleMouseMove;
             this.MouseUp += HandleMouseUp;
             rectangleBtn.Click += (sender, e) => { isRectangleButtonChecked = true; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = false; };
-            circleBtn.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = true; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = false;  };
+            circleBtn.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = true; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = false; };
             triangle.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = true; isHeartButtonPressed = false; isPasteButtonPressed = false; };
-            heart.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = true; isPasteButtonPressed = false;  };
-            paste.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = true;  };
+            heart.Click += (sender, e) => { isRectangleButtonChecked = false; ; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = true; isPasteButtonPressed = false; };
+            paste.Click += (sender, e) => { isRectangleButtonChecked = false; isCircleButtonChecked = false; isTriangleButtonChecked = false; isHeartButtonPressed = false; isPasteButtonPressed = true; };
             undo.Click += (sender, e) => Undo();
-            redo.Click += (sender, e) =>  Redo();
+            redo.Click += (sender, e) => Redo();
 
         }
 
@@ -67,7 +69,7 @@ namespace GraphicApp
 
             if (isRectangleButtonChecked)
             {
-                currentShape = new Rectangle { X = startPoint.X, Y = startPoint.Y };
+                currentShape = new Classes.Rectangle { X = startPoint.X, Y = startPoint.Y };
             }
             else if (isCircleButtonChecked)
             {
@@ -91,13 +93,13 @@ namespace GraphicApp
                     copiedShape = null; // Reset copiedShape after pasting
                 }
             }
-            
 
-           
-            
+
+
+
 
         }
-        
+
         private double CalculateDistance(Point p1, Point p2)
         {
             int dx = p2.X - p1.X;
@@ -112,7 +114,7 @@ namespace GraphicApp
 
                 if (isRectangleButtonChecked)
                 {
-                    currentShape = new Rectangle
+                    currentShape = new Classes.Rectangle
                     {
                         X = Math.Min(startPoint.X, e.X),
                         Y = Math.Min(startPoint.Y, e.Y),
@@ -161,8 +163,8 @@ namespace GraphicApp
                     };
 
                 }
-                
-                
+
+
 
 
 
@@ -181,7 +183,7 @@ namespace GraphicApp
             if (currentShape != null)
             {
                 shapes.Add(currentShape);
-                
+
 
             }
             undoStack.Push(shapes);
@@ -223,6 +225,9 @@ namespace GraphicApp
 
         private void clear_Click(object sender, EventArgs e)
         {
+            undoStack.Push(shapes); // Push a copy of the current state onto undo stack
+            redoStack.Push(new List<Shape>(shapes)); // Push a copy of the current state onto redo stack
+
             shapes.Clear();
             this.Invalidate();
         }
@@ -239,7 +244,7 @@ namespace GraphicApp
             {
                 copiedShape.X = pasteLocation.X;
                 copiedShape.Y = pasteLocation.Y;
-                
+
                 shapes.Add(copiedShape);
 
                 undoStack.Push(new List<Shape>(shapes));
@@ -247,31 +252,34 @@ namespace GraphicApp
                 redoStack.Push(new List<Shape>(shapes));
 
                 copiedShape = null; // Reset copiedShape after pasting
-                isCopyButtonPressed = false; // Reset the flag
+                isCopyButtonPressed = false;
+                isHeartButtonPressed = false;// Reset the flag
                 this.Invalidate();
             }
         }
-        private void Undo() {
+        private void Undo()
+        {
 
             if (undoStack.Count > 1)
             {
-                undoStack.Pop(); // Pop the current state
-                List<Shape> previousState = undoStack.Peek(); // Peek the previous state
-                redoStack.Push(new List<Shape>(shapes)); // Push the current state onto redo stack
+                List<Shape> currentShapes = undoStack.Pop(); // Step 1
+                redoStack.Push(new List<Shape>(currentShapes)); // Step 3
 
-                // Remove one shape at a time from the shapes list
-                if (shapes.Count >= previousState.Count)
+                if (currentShapes.Count >= 1)
                 {
-                    Shape removedShape = shapes.Last();
-                    shapes.Remove(removedShape);
-                    redoStack.Push(new List<Shape>(shapes)); // Push the updated state onto redo stack
+                    currentShapes.RemoveAt(currentShapes.Count - 1); // Step 2
                 }
 
+                shapes = new List<Shape>(currentShapes); // Step 4
             }
-            else {
-                redoStack.Push(shapes);
+            else
+            {
+                // Handle the case when there's only one state on the undo stack
+                redoStack.Push(new List<Shape>(shapes));
                 shapes.Clear();
             }
+
+
             this.Refresh();
 
         }
@@ -280,10 +288,10 @@ namespace GraphicApp
             if (redoStack.Count > 0)
             {
                 List<Shape> nextState = redoStack.Pop(); // Pop the next state
-                
                 shapes.AddRange(nextState);
                 undoStack.Push(new List<Shape>(shapes)); // Push a copy of the shapes list onto undo stack
-                
+
+
             }
             this.Invalidate();
 
