@@ -1,5 +1,6 @@
 using GraphicApp.Classes;
 
+
 namespace GraphicApp
 {
     public partial class Form1 : Form
@@ -93,11 +94,6 @@ namespace GraphicApp
                     copiedShape = null; // Reset copiedShape after pasting
                 }
             }
-
-
-
-
-
         }
 
         private double CalculateDistance(Point p1, Point p2)
@@ -183,14 +179,9 @@ namespace GraphicApp
             if (currentShape != null)
             {
                 shapes.Add(currentShape);
-
-
             }
             undoStack.Push(shapes);
             redoStack.Push(shapes);
-
-
-
             currentShape = null;
             currentMousePosition = e.Location;
 
@@ -225,9 +216,8 @@ namespace GraphicApp
 
         private void clear_Click(object sender, EventArgs e)
         {
-            undoStack.Push(shapes); // Push a copy of the current state onto undo stack
-            redoStack.Push(new List<Shape>(shapes)); // Push a copy of the current state onto redo stack
-
+            undoStack.Clear();
+            redoStack.Clear();
             shapes.Clear();
             this.Invalidate();
         }
@@ -291,10 +281,49 @@ namespace GraphicApp
                 shapes.AddRange(nextState);
                 undoStack.Push(new List<Shape>(shapes)); // Push a copy of the shapes list onto undo stack
 
-
             }
             this.Invalidate();
 
+        }
+
+        private void selectFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                List<Shape> loadedShapes = FileHandler.FileHandler.Load(filePath);
+
+                if (loadedShapes != null)
+                {
+                    shapes.Clear();
+                    shapes.AddRange(loadedShapes);
+                    undoStack.Clear();
+                    redoStack.Clear();
+                    undoStack.Push(new List<Shape>(shapes));
+                    redoStack.Push(new List<Shape>(shapes));
+
+                    this.Invalidate();
+                }
+            }
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string fileName = saveFileDialog.FileName;
+                    FileHandler.FileHandler.SaveToFile(shapes, fileName);
+                    this.Close();
+                }
+            }
         }
     }
 

@@ -4,27 +4,43 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace GraphicApp.Classes
 {
-    internal class Rectangle : Shape
+    [Serializable]
+    public class Rectangle : Shape
     {
+        private float x;
+        private float y;
 
         private int width;
         private int height;
 
 
-
+        [XmlElement("Width")]
         public int Width
         {
             get { return width; }
             set { width = value; }
         }
-
+        [XmlElement("Height")]
         public int Height
         {
             get { return height; }
             set { height = value; }
+        }
+        [XmlElement("X")]
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        [XmlElement("Y")]
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
         }
 
         public Rectangle(int x, int y, int width, int height, bool isFilled, Color color, float thickness = 1.0f)
@@ -37,6 +53,7 @@ namespace GraphicApp.Classes
 
         public Rectangle()
         {
+            int a = 10;
         }
 
         public override double CalculateArea()

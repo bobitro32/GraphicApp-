@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Xml.Serialization;
 
 namespace GraphicApp.Classes
 {
-    internal class Triangle : Shape
+    [Serializable]
+    public class Triangle : Shape
     {
         private PointF leftBottom;
         private PointF rightBottom;
         private PointF top;
         private float width;
         private float height;
+        [XmlElement]
+        public PointF LeftBottom { get => LeftBottom; set => LeftBottom = value; }
+        [XmlElement]
+        public PointF RightBottom { get => RightBottom; set => RightBottom = value; }
+        [XmlElement]
+        public PointF Top { get => Top; set => Top = value; }
+        [XmlElement("Width")]
 
-        public PointF LeftBottom { get => leftBottom; set => leftBottom = value; }
-        public PointF RightBottom { get => rightBottom; set => rightBottom = value; }
-        public PointF Top { get => top; set => top = value; }
         public float Width
         {
             get => width;
@@ -25,15 +31,18 @@ namespace GraphicApp.Classes
                 top.X = leftBottom.X + value / 2;
             }
         }
+        [XmlElement("Height")]
+
         public float Height
         {
             get => height;
             set
             {
                 height = value;
-                top.Y = leftBottom.Y - height;
+                top.Y = leftBottom.Y - Height;
             }
         }
+        
         public float Y
         {
             get { return leftBottom.Y; }
@@ -41,17 +50,18 @@ namespace GraphicApp.Classes
             {
                 leftBottom.Y = value;
                 rightBottom.Y = value;
-                top.Y = value - height;
+                top.Y = value - Height;
             }
         }
+        
         public float X
         {
             get { return leftBottom.X; }
             set
             {
                 leftBottom.X = value;
-                rightBottom.X = value + width;
-                top.X = value + width / 2;
+                rightBottom.X = value + Width;
+                top.X = value + Width / 2;
             }
         }
 
@@ -64,6 +74,7 @@ namespace GraphicApp.Classes
             top = new PointF(x + width / 2, y);
             Width = width;
             Height = height;
+
 
         }
         public Triangle()

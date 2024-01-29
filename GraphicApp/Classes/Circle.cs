@@ -4,31 +4,52 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace GraphicApp.Classes
 {
-    internal class Circle : Shape
+    [Serializable]
+    public class Circle : Shape
     {
-
+        private float x;
+        private float y;
+        
         private double radius;
-
+        [XmlElement("Radius")]
         public double Radius
         {
             get { return radius; }
             set { radius = value; }
         }
+        [XmlElement("X")]
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        [XmlElement("Y")]
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+       
+
         public Circle(bool isFilled, Color color, float thickness = 1.0f)
         {
-
 
         }
         public Circle(int x, int y, double radius, bool isFilled, Color color, float thickness = 1.0f)
         {
-
+            X = x;
+            Y = y;
             Radius = radius;
 
         }
-        public Circle() { }
+        public Circle() {
+           
+        }
         public override double CalculateArea()
         {
             return Math.PI * radius;
@@ -41,9 +62,9 @@ namespace GraphicApp.Classes
 
         public override void Draw(Graphics graphics, Point currentMousePosition)
         {
-            using (Pen pen = new Pen(Color, Thickness))
+            using (Pen pen = new Pen(Color.Red, Thickness))
             {
-                graphics.DrawEllipse(pen, X, Y, (int)Radius, (int)Radius);
+                graphics.DrawEllipse(pen, x, y, (int)Radius, (int)Radius);
             }
         }
 

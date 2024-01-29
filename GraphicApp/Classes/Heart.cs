@@ -5,14 +5,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace GraphicApp.Classes
 {
-    internal class Heart : Shape
+    [Serializable]
+    
+    public class Heart : Shape
     {
+        private float x;
+        private float y;
         private float width;
         private float height;
 
+        [XmlElement("Width")]
         public float Width
         {
             get { return width; }
@@ -22,6 +28,7 @@ namespace GraphicApp.Classes
                 // Update other points accordingly
             }
         }
+        [XmlElement("Height")]
 
         public float Height
         {
@@ -31,6 +38,18 @@ namespace GraphicApp.Classes
                 height = value;
                 // Update other points accordingly
             }
+        }
+        [XmlElement("X")]
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        [XmlElement("Y")]
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
         }
 
         public Heart(int x, int y, float width, float height, bool isFilled, Color color, float thickness = 1.0f)
@@ -50,10 +69,10 @@ namespace GraphicApp.Classes
         {
             return 0;
         }
-        private GraphicsPath CreateHeartPath(float x, float y, float width, float height)
+        private GraphicsPath CreateHeartPath(float X, float Y, float width, float height)
         {
-            float beX = x + width / 2;  // bottom endpoint X
-            float beY = y + height;     // bottom endpoint Y
+            float beX = X + width / 2;  // bottom endpoint X
+            float beY = Y + height;     // bottom endpoint Y
 
             float c1DX = width * 0.968f;  // delta X of control point 1
             float c1DY = height * 0.672f;  // delta Y of control point 1
