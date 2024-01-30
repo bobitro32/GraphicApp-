@@ -33,8 +33,13 @@ namespace GraphicApp.Classes
             get { return y; }
             set { y = value; }
         }
-
-       
+        
+        [XmlElement("Color")]
+        public string ColorHtml
+        {
+            get { return ColorTranslator.ToHtml(Color); }
+            set { Color = ColorTranslator.FromHtml(value); }
+        }
 
         public Circle(bool isFilled, Color color, float thickness = 1.0f)
         {
@@ -62,9 +67,20 @@ namespace GraphicApp.Classes
 
         public override void Draw(Graphics graphics, Point currentMousePosition)
         {
-            using (Pen pen = new Pen(Color.Red, Thickness))
+            using (Pen pen = new Pen(Color, Thickness))
             {
-                graphics.DrawEllipse(pen, x, y, (int)Radius, (int)Radius);
+                if (IsFilled)
+                {
+                    using (Brush brush = new SolidBrush(Color))
+                    {
+                        graphics.FillEllipse(brush, x, y, (int)Radius, (int)Radius);
+                    }
+
+                }
+                else {
+                    graphics.DrawEllipse(pen, x, y, (int)Radius, (int)Radius);
+
+                }
             }
         }
 

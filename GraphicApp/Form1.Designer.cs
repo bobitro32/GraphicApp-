@@ -49,11 +49,11 @@
             colorDialog2 = new ColorDialog();
             selectFile = new Button();
             panel3 = new Panel();
+            color = new Button();
             label3 = new Label();
             panel4 = new Panel();
-            textBox1 = new TextBox();
-            label4 = new Label();
             save = new Button();
+            label4 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -64,7 +64,7 @@
             // 
             rectangleBtn.BackColor = Color.Black;
             rectangleBtn.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            rectangleBtn.ForeColor = Color.DimGray;
+            rectangleBtn.ForeColor = Color.DarkGray;
             rectangleBtn.Location = new Point(3, 33);
             rectangleBtn.Name = "rectangleBtn";
             rectangleBtn.Size = new Size(91, 33);
@@ -76,7 +76,7 @@
             // 
             circleBtn.BackColor = Color.Black;
             circleBtn.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            circleBtn.ForeColor = Color.DimGray;
+            circleBtn.ForeColor = Color.DarkGray;
             circleBtn.Location = new Point(3, 67);
             circleBtn.Name = "circleBtn";
             circleBtn.Size = new Size(91, 33);
@@ -89,7 +89,7 @@
             triangle.BackColor = Color.Black;
             triangle.BackgroundImageLayout = ImageLayout.None;
             triangle.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            triangle.ForeColor = Color.DimGray;
+            triangle.ForeColor = Color.DarkGray;
             triangle.Location = new Point(100, 33);
             triangle.Name = "triangle";
             triangle.Size = new Size(87, 33);
@@ -126,7 +126,7 @@
             // 
             heart.BackColor = Color.Black;
             heart.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            heart.ForeColor = Color.DimGray;
+            heart.ForeColor = Color.DarkGray;
             heart.Location = new Point(100, 67);
             heart.Name = "heart";
             heart.Size = new Size(87, 33);
@@ -138,7 +138,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Showcard Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.ForeColor = Color.Gray;
+            label1.ForeColor = Color.DarkGray;
             label1.Location = new Point(48, 7);
             label1.Name = "label1";
             label1.Size = new Size(81, 23);
@@ -166,8 +166,8 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Showcard Gothic", 14.25F, FontStyle.Italic, GraphicsUnit.Point);
-            label2.ForeColor = Color.Gray;
-            label2.Location = new Point(57, 7);
+            label2.ForeColor = Color.DarkGray;
+            label2.Location = new Point(82, 7);
             label2.Name = "label2";
             label2.Size = new Size(112, 23);
             label2.TabIndex = 10;
@@ -176,7 +176,7 @@
             // redo
             // 
             redo.BackColor = Color.Black;
-            redo.ForeColor = Color.DimGray;
+            redo.ForeColor = Color.DarkGray;
             redo.Location = new Point(186, 72);
             redo.Name = "redo";
             redo.Size = new Size(81, 23);
@@ -188,8 +188,8 @@
             // 
             undo.BackColor = Color.Black;
             undo.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
-            undo.ForeColor = Color.DimGray;
-            undo.Location = new Point(186, 38);
+            undo.ForeColor = Color.DarkGray;
+            undo.Location = new Point(186, 45);
             undo.Name = "undo";
             undo.Size = new Size(81, 23);
             undo.TabIndex = 8;
@@ -199,19 +199,20 @@
             // paste
             // 
             paste.BackColor = Color.Black;
-            paste.ForeColor = Color.DimGray;
+            paste.ForeColor = Color.DarkGray;
             paste.Location = new Point(3, 70);
             paste.Name = "paste";
             paste.Size = new Size(101, 23);
             paste.TabIndex = 7;
             paste.Text = "Paste";
             paste.UseVisualStyleBackColor = false;
+        
             // 
             // clear
             // 
             clear.BackColor = Color.Black;
-            clear.ForeColor = Color.DimGray;
-            clear.Location = new Point(110, 57);
+            clear.ForeColor = Color.DarkGray;
+            clear.Location = new Point(110, 54);
             clear.Name = "clear";
             clear.Size = new Size(70, 27);
             clear.TabIndex = 6;
@@ -222,7 +223,7 @@
             // copy
             // 
             copy.BackColor = Color.Black;
-            copy.ForeColor = Color.DimGray;
+            copy.ForeColor = Color.DarkGray;
             copy.Location = new Point(3, 45);
             copy.Name = "copy";
             copy.Size = new Size(101, 23);
@@ -237,20 +238,21 @@
             filled.BackColor = Color.Black;
             filled.CheckAlign = ContentAlignment.MiddleRight;
             filled.Font = new Font("Showcard Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            filled.ForeColor = Color.DimGray;
+            filled.ForeColor = Color.DarkGray;
             filled.Location = new Point(3, 39);
             filled.Name = "filled";
             filled.Size = new Size(76, 22);
             filled.TabIndex = 4;
             filled.Text = "Filled";
             filled.UseVisualStyleBackColor = false;
+            filled.Click += filled_Click;
             // 
             // thickness
             // 
             thickness.AutoSize = true;
             thickness.BackColor = Color.DimGray;
             thickness.Font = new Font("Showcard Gothic", 11.25F, FontStyle.Italic, GraphicsUnit.Point);
-            thickness.ForeColor = Color.Black;
+            thickness.ForeColor = Color.PaleGoldenrod;
             thickness.Location = new Point(123, 42);
             thickness.Name = "thickness";
             thickness.Size = new Size(89, 18);
@@ -262,8 +264,8 @@
             selectFile.AutoSize = true;
             selectFile.BackColor = Color.Black;
             selectFile.Font = new Font("Showcard Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            selectFile.ForeColor = Color.DimGray;
-            selectFile.Location = new Point(6, 65);
+            selectFile.ForeColor = Color.DarkGray;
+            selectFile.Location = new Point(3, 41);
             selectFile.Name = "selectFile";
             selectFile.Size = new Size(103, 28);
             selectFile.TabIndex = 11;
@@ -275,6 +277,7 @@
             // panel3
             // 
             panel3.BackColor = Color.Black;
+            panel3.Controls.Add(color);
             panel3.Controls.Add(filled);
             panel3.Controls.Add(label3);
             panel3.Controls.Add(hScrollBar1);
@@ -284,12 +287,25 @@
             panel3.Size = new Size(221, 103);
             panel3.TabIndex = 12;
             // 
+            // color
+            // 
+            color.BackColor = Color.Black;
+            color.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            color.ForeColor = Color.DarkGray;
+            color.Location = new Point(4, 58);
+            color.Name = "color";
+            color.Size = new Size(75, 23);
+            color.TabIndex = 5;
+            color.Text = "Color";
+            color.UseVisualStyleBackColor = false;
+            color.Click += color_Click;
+            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Showcard Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.ForeColor = Color.Gray;
-            label3.Location = new Point(56, 7);
+            label3.ForeColor = Color.DarkGray;
+            label3.Location = new Point(65, 7);
             label3.Name = "label3";
             label3.Size = new Size(77, 23);
             label3.TabIndex = 0;
@@ -300,7 +316,6 @@
             panel4.BackColor = Color.Black;
             panel4.BorderStyle = BorderStyle.Fixed3D;
             panel4.Controls.Add(save);
-            panel4.Controls.Add(textBox1);
             panel4.Controls.Add(label4);
             panel4.Controls.Add(selectFile);
             panel4.Location = new Point(5, 12);
@@ -308,36 +323,29 @@
             panel4.Size = new Size(219, 103);
             panel4.TabIndex = 13;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(7, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 13;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Showcard Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = Color.DarkGray;
-            label4.Location = new Point(30, 11);
-            label4.Name = "label4";
-            label4.Size = new Size(108, 18);
-            label4.TabIndex = 12;
-            label4.Text = "SAVE/RELOAD";
-            // 
             // save
             // 
             save.BackColor = Color.Black;
             save.Font = new Font("Showcard Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            save.ForeColor = Color.DimGray;
-            save.Location = new Point(113, 37);
+            save.ForeColor = Color.DarkGray;
+            save.Location = new Point(112, 41);
             save.Name = "save";
-            save.Size = new Size(96, 24);
+            save.Size = new Size(96, 28);
             save.TabIndex = 14;
             save.Text = "Save";
             save.UseVisualStyleBackColor = false;
             save.Click += save_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Showcard Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.ForeColor = Color.DarkGray;
+            label4.Location = new Point(49, 5);
+            label4.Name = "label4";
+            label4.Size = new Size(137, 23);
+            label4.TabIndex = 12;
+            label4.Text = "SAVE/RELOAD";
             // 
             // Form1
             // 
@@ -362,6 +370,8 @@
             panel4.PerformLayout();
             ResumeLayout(false);
         }
+
+        
 
 
 
@@ -394,8 +404,8 @@
         private Label label3;
         private Panel panel4;
         private Label label4;
-        private TextBox textBox1;
         private Button save;
+        private Button color;
     }
 
 }

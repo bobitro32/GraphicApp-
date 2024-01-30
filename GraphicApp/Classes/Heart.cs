@@ -51,7 +51,13 @@ namespace GraphicApp.Classes
             get { return y; }
             set { y = value; }
         }
-
+       
+        [XmlElement("Color")]
+        public string ColorHtml
+        {
+            get { return ColorTranslator.ToHtml(Color); }
+            set { Color = ColorTranslator.FromHtml(value); }
+        }
         public Heart(int x, int y, float width, float height, bool isFilled, Color color, float thickness = 1.0f)
         {
 
@@ -95,11 +101,11 @@ namespace GraphicApp.Classes
 
             GraphicsPath path = CreateHeartPath(X, Y, Math.Max(Width, 100), Math.Max(Height, 100));
 
-            using (Pen pen = new Pen(Color.Red, Thickness))
+            using (Pen pen = new Pen(Color, Thickness))
             {
                 if (IsFilled)
                 {
-                    using (Brush brush = new SolidBrush(Color.Red))
+                    using (Brush brush = new SolidBrush(Color))
                     {
                         graphics.FillPath(brush, path);
                     }
@@ -115,8 +121,8 @@ namespace GraphicApp.Classes
         {
             Heart heart = new Heart();
 
-            heart.X = X;
-            heart.Y = Y;
+            heart.X = X; 
+            heart.Y = Y; 
             heart.Width = Width;
             heart.Height = Height;
             heart.Thickness = Thickness;

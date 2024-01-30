@@ -14,11 +14,11 @@ namespace GraphicApp.Classes
         private float width;
         private float height;
         [XmlElement]
-        public PointF LeftBottom { get => LeftBottom; set => LeftBottom = value; }
+        public PointF LeftBottom { get => leftBottom; set => leftBottom = value; }
         [XmlElement]
-        public PointF RightBottom { get => RightBottom; set => RightBottom = value; }
+        public PointF RightBottom { get => rightBottom; set => rightBottom = value; }
         [XmlElement]
-        public PointF Top { get => Top; set => Top = value; }
+        public PointF Top { get => top; set => top = value; }
         [XmlElement("Width")]
 
         public float Width
@@ -42,7 +42,7 @@ namespace GraphicApp.Classes
                 top.Y = leftBottom.Y - Height;
             }
         }
-        
+        [XmlElement("Y")]
         public float Y
         {
             get { return leftBottom.Y; }
@@ -54,6 +54,13 @@ namespace GraphicApp.Classes
             }
         }
         
+        [XmlElement("Color")]
+        public string ColorHtml
+        {
+            get { return ColorTranslator.ToHtml(Color); }
+            set { Color = ColorTranslator.FromHtml(value); }
+        }
+        [XmlElement("X")]
         public float X
         {
             get { return leftBottom.X; }
@@ -126,8 +133,8 @@ namespace GraphicApp.Classes
         public override Shape CopyFigure(Point newMousePosition)
         {
             Triangle triangle = new Triangle();
-            triangle.X = newMousePosition.X; // Set the X position to the new mouse click X
-            triangle.Y = newMousePosition.Y;
+            triangle.X = X; // Set the X position to the new mouse click X
+            triangle.Y = Y;
             triangle.Width = Width;
             triangle.Height = Height;
             triangle.IsFilled = IsFilled;

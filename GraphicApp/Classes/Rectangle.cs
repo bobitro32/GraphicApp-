@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,13 @@ namespace GraphicApp.Classes
             get { return y; }
             set { y = value; }
         }
+        
+        [XmlElement("Color")]
+        public string ColorHtml
+        {
+            get { return ColorTranslator.ToHtml(Color); }
+            set { Color = ColorTranslator.FromHtml(value); }
+        }
 
         public Rectangle(int x, int y, int width, int height, bool isFilled, Color color, float thickness = 1.0f)
         {
@@ -74,6 +82,13 @@ namespace GraphicApp.Classes
         {
             using (Pen pen = new Pen(Color, Thickness))
             {
+                if (IsFilled) {
+
+                    using (Brush brush = new SolidBrush(Color))
+                    {
+                        graphics.FillRectangle(brush,X,Y,Width,Height);
+                    }
+                }
                 graphics.DrawRectangle(pen, X, Y, Width, Height);
             }
         }

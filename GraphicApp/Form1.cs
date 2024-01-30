@@ -17,7 +17,8 @@ namespace GraphicApp
         private bool isHeartButtonPressed = false;
         private bool isPasteButtonPressed = false;
         private bool isCopyButtonPressed = false;
-
+        private bool isFilledButtonPressed = false;
+        private Color selectedColor;
         private Stack<List<Shape>> undoStack;
         private Stack<List<Shape>> redoStack;
         private Point currentMousePosition;
@@ -60,13 +61,8 @@ namespace GraphicApp
         private void HandleMouseDown(object sender, MouseEventArgs e)
         {
             startPoint = e.Location;
-
-
             currentMousePosition = e.Location;
-            if (isCopyButtonPressed)
-            {
-                pasteObject(currentMousePosition);
-            }
+
 
             if (isRectangleButtonChecked)
             {
@@ -88,12 +84,11 @@ namespace GraphicApp
             {
                 if (copiedShape != null)
                 {
-                    copiedShape.X = currentMousePosition.X;
-                    copiedShape.Y = currentMousePosition.Y;
-                    shapes.Add(copiedShape); // Add the copied shape to the list
-                    copiedShape = null; // Reset copiedShape after pasting
+                   
+                    pasteObject(currentMousePosition);
                 }
             }
+
         }
 
         private double CalculateDistance(Point p1, Point p2)
@@ -116,8 +111,8 @@ namespace GraphicApp
                         Y = Math.Min(startPoint.Y, e.Y),
                         Width = Math.Abs(endPoint.X - startPoint.X),
                         Height = Math.Abs(endPoint.Y - startPoint.Y),
-                        IsFilled = false,
-                        Color = Color.DarkMagenta,
+                        IsFilled = isFilledButtonPressed,
+                        Color = selectedColor,
                         Thickness = shapeThickness
                     };
                 }
@@ -128,8 +123,8 @@ namespace GraphicApp
                         X = Math.Min(startPoint.X, e.X),
                         Y = Math.Min(startPoint.Y, e.Y),
                         Radius = (int)Math.Max(Math.Abs(e.X - startPoint.X), Math.Abs(e.Y - startPoint.Y)),
-                        IsFilled = false,
-                        Color = Color.DarkOliveGreen,
+                        IsFilled = isFilledButtonPressed,
+                        Color = selectedColor,
                         Thickness = shapeThickness
                     };
                 }
@@ -141,8 +136,9 @@ namespace GraphicApp
                         (currentShape as Triangle).X = Math.Min(startPoint.X, e.X);
                         (currentShape as Triangle).Width = Math.Abs(endPoint.X - startPoint.X);
                         (currentShape as Triangle).Height = (endPoint.Y - startPoint.Y);
-                        (currentShape as Triangle).Color = Color.DarkRed;
+                        (currentShape as Triangle).Color = selectedColor;
                         (currentShape as Triangle).Thickness = shapeThickness;
+                        (currentShape as Triangle).IsFilled = isFilledButtonPressed;
                     }
                 }
                 else if (isHeartButtonPressed)
@@ -153,16 +149,12 @@ namespace GraphicApp
                         Y = Math.Min(startPoint.Y, endPoint.Y),
                         Width = Math.Abs(endPoint.X - startPoint.X),
                         Height = (endPoint.Y - startPoint.Y),
-                        IsFilled = false,
-                        Color = Color.Red,
+                        IsFilled = isFilledButtonPressed,
+                        Color = selectedColor,
                         Thickness = shapeThickness
                     };
 
                 }
-
-
-
-
 
                 currentMousePosition = e.Location;
 
@@ -225,18 +217,31 @@ namespace GraphicApp
         {
             Shape lastShape = shapes.Last();
             copiedShape = lastShape.CopyFigure(currentMousePosition);
-            //copiedShape.Thickness = lastShape.Thickness;
-            isCopyButtonPressed = true;
+            
         }
         private void pasteObject(Point pasteLocation)
         {
             if (copiedShape != null)
             {
-                copiedShape.X = pasteLocation.X;
-                copiedShape.Y = pasteLocation.Y;
+                if (copiedShape.GetType() == typeof(Triangle))
+                {
+                    (copiedShape as Triangle).X = pasteLocation.X;
+                    (copiedShape as Triangle).Y = pasteLocation.Y;
+                }
+                else if (copiedShape.GetType() == typeof(Circle)) {
+                    (copiedShape as Circle).X = pasteLocation.X;
+                    (copiedShape as Circle).Y = pasteLocation.Y;
+                }
+                else if (copiedShape.GetType() == typeof(Classes.Rectangle)) {
+                    (copiedShape as Classes.Rectangle).X = pasteLocation.X;
+                    (copiedShape as Classes.Rectangle).Y = pasteLocation.Y;
+                }
+                else if (copiedShape.GetType() == typeof(Heart)) {
+                    (copiedShape as Heart).X = pasteLocation.X;
+                    (copiedShape as Heart).Y = pasteLocation.Y;
+                }
 
                 shapes.Add(copiedShape);
-
                 undoStack.Push(new List<Shape>(shapes));
                 redoStack.Clear();
                 redoStack.Push(new List<Shape>(shapes));
@@ -244,6 +249,7 @@ namespace GraphicApp
                 copiedShape = null; // Reset copiedShape after pasting
                 isCopyButtonPressed = false;
                 isHeartButtonPressed = false;// Reset the flag
+                this.Invalidate();
                 this.Invalidate();
             }
         }
@@ -323,6 +329,30 @@ namespace GraphicApp
                     FileHandler.FileHandler.SaveToFile(shapes, fileName);
                     this.Close();
                 }
+            }
+        }
+
+        private void color_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog colorDialog = new ColorDialog())
+            {
+                if (colorDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // User selected a color
+                    selectedColor = colorDialog.Color;
+
+                    // You can use the selected color as needed, for example, set it to the current shape's color
+                   
+                }
+            }
+        }
+        private void filled_Click(object sender, EventArgs e) {
+            if (isFilledButtonPressed)
+            {
+                isFilledButtonPressed = false;
+            }
+            else {
+                isFilledButtonPressed = true;
             }
         }
     }
