@@ -173,7 +173,8 @@ namespace GraphicApp
                 shapes.Add(currentShape);
             }
             undoStack.Push(shapes);
-            redoStack.Push(shapes);
+            redoStack.Clear();
+
             currentShape = null;
             currentMousePosition = e.Location;
 
@@ -255,17 +256,21 @@ namespace GraphicApp
         }
         private void Undo()
         {
-
+            
             if (undoStack.Count > 1)
             {
+                
                 List<Shape> currentShapes = undoStack.Pop(); // Step 1
-                redoStack.Push(new List<Shape>(currentShapes)); // Step 3
+                 // Step 3
+                 redoStack.Push(new List<Shape>(currentShapes));
 
                 if (currentShapes.Count >= 1)
                 {
-                    currentShapes.RemoveAt(currentShapes.Count - 1); // Step 2
-                }
 
+                    currentShapes.RemoveAt(currentShapes.Count - 1);
+                    
+                }
+                
                 shapes = new List<Shape>(currentShapes); // Step 4
             }
             else
